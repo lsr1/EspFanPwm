@@ -1,0 +1,56 @@
+esphome:
+  name: EspFanPwm
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "EspFanPwm Fallback Hotspot"
+    password: "Zt66SJIx4545YTtlp"
+
+captive_portal:
+
+web_server:
+  port: 80
+  
+  
+output:
+    platform: esp8266_pwm
+    pin: D1
+    frequency: 25000 Hz
+    id: cabfan
+
+fan:
+  - platform: speed
+    output: cabfan
+    name: "EspFanPwm"
+
+sensor:
+  - platform: pulse_counter
+    pin: D2
+    name: "Fan1"
+    update_interval: 5s
+
+  - platform: pulse_counter
+    pin: D3
+    name: "Fan2"
+    update_interval: 5s
+
+  - platform: pulse_counter
+    pin: D4
+    name: "Fan3"
+    update_interval: 5s
